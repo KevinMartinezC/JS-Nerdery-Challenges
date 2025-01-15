@@ -105,7 +105,7 @@ const ownPower = (number, lastDigits) => {
 
   return totalSum.toString().slice(-lastDigits);
 };
-//totalSum.toString().slice(-lastDigits).padStart(lastDigits, '0')
+
 ownPower(10, 3);
 ownPower(12, 7);
 ownPower(21, 12);
