@@ -14,6 +14,22 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 
 const readableTime = (seconds) => {
   // YOUR CODE HERE...
+  const SECONDS_IN_HOUR = 3600; // Number of seconds in an hour
+  const SECONDS_IN_MINUTE = 60; // Number of seconds in a minute
+  const DOUBLE_DIGITS = 2; // Target length for formatting
+  const PADDING_CHAR = "0"; // Character used for padding
+
+  const hours = Math.floor(seconds / SECONDS_IN_HOUR); // 1 hour = 3600 seconds
+  const minutes = Math.floor((seconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);  // Remaining seconds converted to minutes
+  const remainingSecods = seconds % SECONDS_IN_MINUTE; // Seconds left after extracting hours and minutes
+
+  // Ensure all values are always 2 digits (with "0" padding)
+  const formattedHours = String(hours).padStart(DOUBLE_DIGITS,PADDING_CHAR);
+  const formattedMinutes = String(minutes).padStart(DOUBLE_DIGITS, PADDING_CHAR);
+  const formattedSecods = String(remainingSecods).padStart(DOUBLE_DIGITS, PADDING_CHAR)
+
+  // Return the formatted time as "HH:MM:SS"
+  return `${formattedHours}:${formattedMinutes}:${formattedSecods}`
 };
 
 readableTime(458);
