@@ -58,12 +58,20 @@ const COUNTRY_NAMES = ["Germany", "Norway", "Island", "Japan", "Israel"];
 
 const circularArray = (index) => {
   // YOUR CODE HERE...
+
+  // Ensure the index is within the bounds of the array length
+  const normalizedIndex = index % COUNTRY_NAMES.length;
+
+  // Slice the array into two parts and concatenate
+  const rotatedArray = COUNTRY_NAMES.slice(normalizedIndex).concat(COUNTRY_NAMES.slice(0,normalizedIndex));
+
+  return rotatedArray;
 };
 
 circularArray(2);
 circularArray(3);
 circularArray(5);
-circularArray(9);
+c(9);
 
 /* *****
 Challenge 3
