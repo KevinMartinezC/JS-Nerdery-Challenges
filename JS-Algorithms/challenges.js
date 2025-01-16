@@ -21,9 +21,9 @@ const readableTime = (seconds) => {
 
   const hours = Math.floor(seconds / SECONDS_IN_HOUR); // 1 hour = 3600 seconds
   const minutes = Math.floor((seconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);  // Remaining seconds converted to minutes
-  const remainingSecods = seconds % SECONDS_IN_MINUTE; // Seconds left after extracting hours and minutes
+  const remainingSeconds = seconds % SECONDS_IN_MINUTE; // Seconds left after extracting hours and minutes
 
-  return [hours, minutes, remainingSecods].map(formatTimeValue).join(":");
+  return [hours, minutes, remainingSeconds].map(formatTimeValue).join(":");
 };
 
 readableTime(458);
