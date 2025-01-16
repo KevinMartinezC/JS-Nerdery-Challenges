@@ -1,15 +1,4 @@
 
-// Constants
-const ONE_BIGINT = 1n; // Initial value for factorial calculation as BigInt literal
-const STARTING_SUM = 0; // Initial value for summing digits
-const START_FACTORIAL_LOOP_VALUE = 2
-const ZERO_BIGINT = 0n
-const SECONDS_IN_HOUR = 3600; // Number of seconds in an hour
-const SECONDS_IN_MINUTE = 60; // Number of seconds in a minute
-const STRING_SPLIT_DELIMITER = "";// General delimiter for splitting strings
-const MINIMUM_INDEX = 1; // Fibonacci starts at index 1
-const FIB_START1 = 1; // First Fibonacci number
-const FIB_START2 = 1; // Second Fibonacci number
 
 /* *****
 Challenge 1
@@ -28,14 +17,14 @@ Invoking "readableTime(3690)" should return "01:01:30" (HH:MM:SS)
 const formatTimeValue = (value) => String(value).padStart(2,"0");
 
 const readableTime = (seconds) => {
-  // YOUR CODE HERE...
+  const SECONDS_IN_HOUR = 3600; 
+  const SECONDS_IN_MINUTE = 60; 
 
   const hours = Math.floor(seconds / SECONDS_IN_HOUR); // 1 hour = 3600 seconds
   const minutes = Math.floor((seconds % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);  // Remaining seconds converted to minutes
   const remainingSecods = seconds % SECONDS_IN_MINUTE; // Seconds left after extracting hours and minutes
 
-  // Return the formatted time as "HH:MM:SS"
-  return `${formatTimeValue(hours)}:${formatTimeValue(minutes)}:${formatTimeValue(remainingSecods)}`;
+  return [hours, minutes, remainingSecods].map(formatTimeValue).join(":");
 };
 
 readableTime(458);
@@ -97,7 +86,7 @@ The last 3 digits for the sum of powers from 1 to 10 is "317"
 ***** */
 
 const ownPower = (number, lastDigits) => {
-  let totalSum = ZERO_BIGINT;
+  let totalSum = 0n;
 
   for(let i = 1; i <= number; i++) {
     totalSum += BigInt(i) **  BigInt(i);
@@ -128,18 +117,20 @@ Since 10! === 3628800 and you sum 3 + 6 + 2 + 8 + 8 + 0 + 0
 ***** */
 
 const factorial = (num) => {
-  let result = ONE_BIGINT;
-  for (let i = START_FACTORIAL_LOOP_VALUE; i <= num; i++){
+  let result = 1n;
+  for (let i = 2; i <= num; i++){
     result *= BigInt(i);
   }
   return result
 }
 
 const digitSum = (n) => {
+  const STRING_SPLIT_DELIMITER = "";
+
   return factorial(n)
     .toString()
     .split(STRING_SPLIT_DELIMITER)
-    .reduce((sum, digit) => sum + Number(digit), STARTING_SUM);
+    .reduce((sum, digit) => sum + Number(digit), 0);
 };
 
 digitSum(10);
@@ -162,18 +153,22 @@ Because the 12th index in the Fibonacci sequence is 144, and 144 has three digit
 ***** */
 
 const fibIndex = (n) => {
-   let prev = FIB_START1; 
-   let current = FIB_START2; 
-   let index = MINIMUM_INDEX + 1;
+  if (typeof n !== "number" || n <= 0) {
+    throw new Error("Input must be a positive integer.");
+  }
 
-    while (current.toString().length < n) {
-     const next = prev + current;
-     prev = current;
-     current = next; 
-     index++; 
-   }
- 
-   return index;
+  let previousFibo = 1;
+  let currentFibo = 1;
+  let index = 2;
+
+  while (Math.floor(Math.log10(currentFibo)) + 1 < n) {
+    const nextFibo = previousFibo + currentFibo;
+    previousFibo = currentFibo;
+    currentFibo = nextFibo;
+    index++;
+  }
+
+  return index;
 };
 
 fibIndex(3);
